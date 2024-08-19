@@ -41,11 +41,11 @@ Normalização de preço por noite: usando Preço Norm = [price]/[minimum_nights
 Tratativa dos valores nulos;
 Tradução do itens para português;
 Atribuição da seguinte categorização para a avaliação da hospedagem: Se Score = 0 é "Inválido"; Se Score <= 20, "Muito Insuficiente"; Score <= 40, "Insuficiente"; Score <= 60, "Razoável"; Score <= 80, "Bom"; Outros, "Excelente";
-= Table.AddColumn(#"Valor Substituído", "Rating", each if [review_scores_rating] = 0 then "Inválido" 
-else if [review_scores_rating] <= 20 then "Muito insuficiente" 
-else if [review_scores_rating] <= 40 then "Insuficiente" 
-else if [review_scores_rating] <= 60 then "Razoável" 
-else if [review_scores_rating] <= 80 then "Bom" else "Excelente")
+> = Table.AddColumn(#"Valor Substituído", "Rating", each if [review_scores_rating] = 0 then "Inválido" 
+> else if [review_scores_rating] <= 20 then "Muito insuficiente" 
+> else if [review_scores_rating] <= 40 then "Insuficiente" 
+> else if [review_scores_rating] <= 60 then "Razoável" 
+> else if [review_scores_rating] <= 80 then "Bom" else "Excelente")
 
 ### Modelo de dados:
 ![image](https://github.com/user-attachments/assets/90865b2f-6871-443f-b5b9-d2d4ed31109a)
