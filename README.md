@@ -15,18 +15,23 @@ Foram analisados dados de 8 cidades em 8 países diferentes, considerando hosped
 Medidas Criadas (DAX):
 
 ![image](https://github.com/user-attachments/assets/ddc5856b-9c16-4c6a-a8ba-d7a864a9da85)
+
 Tabela dimensão calendário, considerando 01/01/2018 a 31/12/2022
 
 ![image](https://github.com/user-attachments/assets/5fcbebb5-ec66-499c-a2f0-60fe725f9418)
+
 Medida para obter a cidade com maior Score médio, considerando a medida geral de Score médio por cidade
 
 ![image](https://github.com/user-attachments/assets/9b1ad461-8fb5-490e-aa83-e7e634005784)
+
 Medida criada para obter o Score médio de cada cidade, a partir da medida anterior de Média Score
 
 ![image](https://github.com/user-attachments/assets/ac8b8c2b-a159-47d7-bce1-881bc5b26d28)
+
 Média de Score considerando os 6 itens de review nas bases de dados
 
 ![image](https://github.com/user-attachments/assets/cb596dab-4e40-4be2-a381-0e3c5c4232ae)
+
 Contagem da quantidade de hosts
 
 ### Tratamento de dados:
