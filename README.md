@@ -1,26 +1,26 @@
-# Dashboard Descritivo - Dados do Airbnb
+# Descriptive Dashboard - Airbnb Data
 
-### Objetivo:
+### Objective:
 
-Dashboard desenvolvido para estudos pessoais. Optei por usar uma base sobre AirBNB por ser um assunto o qual me interesso e me identifico.
-O objetivo desse dashboard é poder ter uma visão empresarial - alguém que pretenda iniciar um empreendimento para Airbnb tomar decisões de em qual cidade, região, qual tipo de imóvel, entre outras informações. Além de trazer informações que mapeiem o perfil dos hosts.
-Dados disponíveis em: https://www.kaggle.com/datasets/mysarahmadbhat/airbnb-listings-reviews
+This dashboard was developed for personal projects. I chose to focus on Airbnb because it is a topic that interests me and resonates with me.
+The goal of this dashboard is to provide a business perspective—helping someone looking to start an Airbnb business make decisions about which city, region, and type of property to target, among other factors. It also provides information that maps the profile of hosts.
+Data available at: https://www.kaggle.com/datasets/mysarahmadbhat/airbnb-listings-reviews
 
-### Desafios:
+### Challenges:
 
-Um dos maiores desafios foi o tratamento dos dados. Os dados sobre cidade e região não estavam estruturados, sendo assim optei por importar bases dimensão de cidade-estado-país. Isso também para facilitar outras visualizações, que optei por não desenvolver nesse momento.
-Por não haver um dicionário de dados muito claro, tive desafios na interpretação de alguns dados e como normalizá-los.
-O resultado não é perfeito, alguns detalhes optei por não dar atenção nesse momento, por tratar-se de um objeto de estudos básicos. Por exemplo, nesse momento não fiz normalização de moeda.Tentei formular e traduzir tudo em Português-BR para facilitar a compreensão.
-Foram analisados dados de 8 cidades em 8 países diferentes, considerando hospedagens a partir de 01/01/2018, não havendo diferenciação do período pandêmico.
-Medidas Criadas (DAX):
+One of the biggest challenges was data processing. The data on city and region was unstructured, so I chose to import city-state-country dimension tables. This was also to facilitate other visualizations, which I chose not to develop at this time.
+Since there wasn’t a very clear data dictionary, I faced challenges in interpreting some data and determining how to normalize it.
+The result is not perfect; I chose to overlook some details at this stage, as this is a basic study. For example, I did not normalize currency at this time. I tried to formulate and translate everything into Brazilian Portuguese to facilitate understanding.
+Data from 8 cities in 8 different countries were analyzed, considering accommodations starting from January 1, 2018, with no distinction made for the pandemic period.
+Metrics Created (DAX):
 
 ![image](https://github.com/user-attachments/assets/ddc5856b-9c16-4c6a-a8ba-d7a864a9da85)
 
-Tabela dimensão calendário, considerando 01/01/2018 a 31/12/2022
+Dimension table Calendar, considering data from 01/01/2018 to 31/12/2022
 
 ![image](https://github.com/user-attachments/assets/5fcbebb5-ec66-499c-a2f0-60fe725f9418)
 
-Medida para obter a cidade com maior Score médio, considerando a medida geral de Score médio por cidade
+Measure to identify the city with the highest average score, based on the overall average score per city
 
 ![image](https://github.com/user-attachments/assets/9b1ad461-8fb5-490e-aa83-e7e634005784)
 
@@ -28,35 +28,35 @@ Medida criada para obter o Score médio de cada cidade, a partir da medida anter
 
 ![image](https://github.com/user-attachments/assets/ac8b8c2b-a159-47d7-bce1-881bc5b26d28)
 
-Média de Score considerando os 6 itens de review nas bases de dados
+A metric designed to calculate the average score for each city, based on the previous “Average Score” metrics
 
 ![image](https://github.com/user-attachments/assets/cb596dab-4e40-4be2-a381-0e3c5c4232ae)
 
-Contagem da quantidade de hosts
+Metric for the amount of hosts
 
-### Tratamento de dados:
+### Data processing:
 
-Remoção de outliers, filtrando [accomodates] <= 10 e [bedrooms] <= 7;
-Normalização de preço por noite: usando Preço Norm = [price]/[minimum_nights] e colocando [Preço Norm] <= 1100 e [minimum_nights] <= 31;
-Tratativa dos valores nulos;
-Tradução do itens para português;
-Atribuição da seguinte categorização para a avaliação da hospedagem: Se Score = 0 é "Inválido"; Se Score <= 20, "Muito Insuficiente"; Score <= 40, "Insuficiente"; Score <= 60, "Razoável"; Score <= 80, "Bom"; Outros, "Excelente";
-> = Table.AddColumn(#"Valor Substituído", "Rating", each if [review_scores_rating] = 0 then "Inválido" 
-> else if [review_scores_rating] <= 20 then "Muito insuficiente" 
-> else if [review_scores_rating] <= 40 then "Insuficiente" 
-> else if [review_scores_rating] <= 60 then "Razoável" 
-> else if [review_scores_rating] <= 80 then "Bom" else "Excelente")
-
-### Modelo de dados:
+Removing outliers by filtering for [accomodates] ≤ 10 and [bedrooms] ≤ 7;
+Normalization of price per night: using Norm Price = [price]/[minimum_nights] and setting [Norm Price] <= 1100 and [minimum_nights] <= 31;
+Handling of null values;
+Translation of items into Portuguese;
+Assigning the following categories to the accommodation rating: If Score = 0, “Invalid”; If Score <= 20, “Very Poor”; Score <= 40, “Poor”; Score <= 60, “Fair”; Score <= 80, ‘Good’; Others, “Excellent”;
+> = Table.AddColumn(#“Replaced Value”, ‘Rating’, each if [review_scores_rating] = 0 then “Invalid” 
+> else if [review_scores_rating] <= 20 then “Very Poor” 
+> else if [review_scores_rating] <= 40 then “Poor” 
+> else if [review_scores_rating] <= 60 then “Fair” 
+> else if [review_scores_rating] <= 80 then “Good” else “Excellent”)
+> 
+### Data model:
 ![image](https://github.com/user-attachments/assets/90865b2f-6871-443f-b5b9-d2d4ed31109a)
 
-### Relatório:
+### Report:
 
-Filtros: é possível filtrar bom período de Data, Cidade, Avaliação da propriedade e Tipo de quarto;
-Hospedagens por cidade: quantidade de propriedades diferentes disponíveis para hospedagem por cidade;
-Preço por cidade e tipo de quarto: visualização do preço normalizado por cidade, legendado pelo tipo de hospedagem (lugar todo, quarto de hotel, quarto pivado ou quarto compartilhado);
+Filters: You can filter by date range, city, property rating, and room type;
+Accommodations by city: Number of different properties available for lodging by city;
+Price by city and room type: View of the average price by city, broken down by accommodation type (entire place, hotel room, private room, or shared room);
 
-Média de Score por Cidade: Score médio de cada cidade;
+Average Score by City: Average score for each city;
 ![image](https://github.com/user-attachments/assets/25a52464-3346-467e-92ba-9cb6cbb454c0)
 
 Distribuição das hospedagens por ano: é possível fazer o drill down para obter a informação por mês. Mostra quantas hospedagens foram fechadas por mês, ano. Legendado por cada cidade;
@@ -67,25 +67,25 @@ Distribuição da avaliação por ano e mês: mostra a avaliação média geral;
 
 ![image](https://github.com/user-attachments/assets/cde9fb21-8b6b-4067-972f-66ba3a41421b)
 
-Média de Score por Tipo de propriedade: obtenção do score médio geral, de acordo com o tipo de propriedade ofertada no AirBNB;
-Preço médio por tipo de quarto e cidade: análogo à visualização da página 1, facilitando ver o comportamento dos preços por tipo de quarto em cada cidade;
-Distribuição da quantidade de quartos: quantas hospedagens oferece cada quantidade de quartos, de 1 a 7, sendo valores absolutos e positivos;
-Distribuição da quantidade mínima de noites: quantas hospedagens estão alocadas em cada quantidade de noites mínimas para fechar a hospedagem, de 1 a 31;
-Distribuição das quantidades de hóspedes: quantas hospedagens podem alocar cada quantidade de hóspedes disponível, variando de 1 a 10;
+Breakdown of bookings by year: You can drill down to view the data by month. Shows how many bookings were made per month and year. Categorized by city;
+Price breakdown by booking: Shows how many bookings are priced at that rate per night (standardized price);
+Bookings by year and month: a simple visualization showing the number of bookings made each year/month, allowing you to identify peak and off-peak seasons;
+Average price by year and room type: you can drill down to view the information by month. Shows the variation in the monthly average price, with each line representing a room type;
+Rating distribution by year and month: shows the overall average rating;
 
 ![image](https://github.com/user-attachments/assets/288d6b78-adf4-4f9e-8f8d-4b70285cfdcf)
 
-Média de Score por tempo de resposta: mostra a variação do Score médio, de acordo com cada categoria de tempo de resposta;
-Hospedagens por avaliação: dentro da categorização de avaliações, quantas hospedagens obtiveram cada uma. A quantidade elevada de "Inválidos" dá-se por muitos hospedes não terem deixado avaliação da hospedagem;
-Hosts com mais hospedagens: indica o Host ID que mais fechou hospedagens;
-Hospedagens por tipo de quarto: indica quantas hospedagens há por categoria de tipo de quarto;
-Quantidade de Hosts por identidade verificada: indica se há alguma diferença entre hosts que verificaram suas contas e os que não; 
+Average Score by Response Time: shows the variation in the average score according to each response time category;
+Stays by Review: within each review category, how many stays each one received. The high number of “Invalid” reviews is due to many guests not leaving a review for their stay;
+Hosts with the most stays: indicates the Host ID that has completed the most stays;
+Stays by room type: indicates how many stays there are per room type category;
+Number of hosts by verified identity: indicates whether there is any difference between hosts who have verified their accounts and those who have not; 
 
 ![image](https://github.com/user-attachments/assets/f0ba13d3-3837-4ca2-8214-2e850750376b)
 
-### Conclusão:
-É possível gerar alguns insights a partir do dashboard, como por exemplo:
-A cidade do México é a que obteve melhor média de avaliação e também a 7◦ em quantidade de hospedagens, havendo muto espaço para crescimento;
-A diária do quarto de hotel é, em média, mais cara que a diária de aluguel do local todo;
-Hospedagens que oferencem "Lugar todo" também foram as mais buscadas, sendo 72% avaliadas em Bom ou Excelente;
-Entre Outros. Há muitos ajustes que pretendo fazer futuramente, mas decidi compartilhar como está no momento.
+### Conclusion:
+It is possible to draw some insights from the dashboard, such as:
+Mexico City has the highest average rating and ranks 7th in terms of the number of accommodations, indicating significant room for growth;
+The average daily rate for a hotel room is, on average, more expensive than the daily rental rate for an entire property;
+Accommodations offering “Entire Place” listings were also the most sought-after, with 72% rated as Good or Excellent;
+Among others. There are many adjustments I plan to make in the future, but I decided to share how it looks right now.
